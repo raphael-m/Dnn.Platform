@@ -23,7 +23,6 @@
 using System;
 using System.Collections;
 using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 
@@ -421,8 +420,7 @@ namespace DotNetNuke.Modules.Admin.Users
                 lastName.Visible = false;
             }
 
-            User.Username = HttpUtility.HtmlDecode(User.Username);
-            User.DisplayName = HttpUtility.HtmlDecode(User.DisplayName);
+
             userForm.DataSource = User;
 			if (!Page.IsPostBack)
 			{
@@ -595,8 +593,6 @@ namespace DotNetNuke.Modules.Admin.Users
             {
                 return;
             }
-            User.Username = HttpUtility.HtmlEncode(User.Username);
-
             if (AddUser)
             {
                 if (IsValid)
@@ -621,7 +617,7 @@ namespace DotNetNuke.Modules.Admin.Users
                         //either update the username or update the user details
                         if (CanUpdateUsername())
                         {
-                            UserController.ChangeUsername(User.UserID, HttpUtility.HtmlEncode(renameUserName.Value.ToString()));
+                            UserController.ChangeUsername(User.UserID, renameUserName.Value.ToString());
                         }
 
                         UserController.UpdateUser(UserPortalID, User);
