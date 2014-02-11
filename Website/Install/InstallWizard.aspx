@@ -106,6 +106,7 @@
                             <asp:TextBox ID="txtEmail" runat="server"/>
                             <asp:RequiredFieldValidator ID="valEmal" CssClass="dnnFormMessage dnnFormError dnnRequired" runat="server" resourcekey="Email.Required" Display="Dynamic" ControlToValidate="txtEmail" />
                             <asp:RegularExpressionValidator ID="valEmailValid" runat="server" cssclass="dnnFormMessage dnnFormError dnnRequired" display="Dynamic" resourcekey="Email.Invalid" ControlToValidate="txtEmail" />
+			</div>
                     </div>
                 </div>
                 <div id="websiteInfo" runat="Server" visible="True" class="dnnForm">                    
