@@ -115,6 +115,7 @@ namespace DotNetNuke.Services.Search.Controllers
 						var portalSettings = new PortalSettings(searchResult.PortalId);
                         portalSettings.PortalAlias = TestablePortalAliasController.Instance.GetPortalAlias(portalSettings.DefaultPortalAlias);
                         url = TestableGlobals.Instance.NavigateURL(module.TabID, portalSettings, string.Empty, searchResult.QueryString);
+                        }
                     }
                     catch (Exception ex)
                     {
