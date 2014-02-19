@@ -51,12 +51,25 @@ namespace DotNetNuke.Entities.Tabs
             {
                 return;
             }
+            //Clear Denied permissions
+            ClearPermissions(tab.TabPermissions, "VIEW", allUsersRoleId);
+            
             tab.TabPermissions.Add(GetTabPermissionByRole(tab.TabID, "VIEW", allUsersRoleId));            
             TabPermissionController.SaveTabPermissions(tab);
             ClearTabCache(tab);
-        }
-        
+        }        
         #region private Methods
+
+        private void ClearPermissions(TabPermissionCollection tabPermissions, string permissionKey, int allUsersRoleId)
+        {
+            for (var i = tabPermissions.Count - 1; i >= 0; i--)
+            {
+                if (tabPermissions[i].PermissionKey == permissionKey && tabPermissions[i].RoleID == allUsersRoleId)
+                {
+                    tabPermissions.RemoveAt(i);
+                }
+            }        
+        }
 
         private void ClearTabCache(TabInfo tabInfo)
         {
