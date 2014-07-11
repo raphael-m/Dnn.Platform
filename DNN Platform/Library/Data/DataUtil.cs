@@ -64,7 +64,7 @@ namespace DotNetNuke.Data
             return GetColumnName(type.GetProperty(propertyName), propertyName);
         }
 
-        internal static string GetColumnName(PropertyInfo propertyInfo, string defaultName)
+        internal static string GetColumnName(MemberInfo propertyInfo, string defaultName)
         {
             var columnName = defaultName;
 

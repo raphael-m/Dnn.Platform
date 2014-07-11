@@ -30,6 +30,7 @@ using System.Text.RegularExpressions;
 
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.ComponentModel;
+using DotNetNuke.Data.NPoco;
 using DotNetNuke.Data.PetaPoco;
 using DotNetNuke.Entities.Portals;
 using DotNetNuke.Entities.Users;
@@ -83,7 +84,7 @@ namespace DotNetNuke.Data
 
             try
             {
-                PetaPocoHelper.ExecuteReader(connectionString, CommandType.StoredProcedure, owner + qualifier + "GetDatabaseVersion");
+                NPocoHelper.ExecuteReader(connectionString, CommandType.StoredProcedure, owner + qualifier + "GetDatabaseVersion");
             }
             catch (SqlException ex)
             {
@@ -328,17 +329,17 @@ namespace DotNetNuke.Data
 
         public override void ExecuteNonQuery(string procedureName, params object[] commandParameters)
         {
-            PetaPocoHelper.ExecuteNonQuery(ConnectionString, CommandType.StoredProcedure, DatabaseOwner + ObjectQualifier + procedureName, commandParameters);
+            NPocoHelper.ExecuteNonQuery(ConnectionString, CommandType.StoredProcedure, DatabaseOwner + ObjectQualifier + procedureName, commandParameters);
         }
 
         public override IDataReader ExecuteReader(string procedureName, params object[] commandParameters)
         {
-            return PetaPocoHelper.ExecuteReader(ConnectionString, CommandType.StoredProcedure, DatabaseOwner + ObjectQualifier + procedureName, commandParameters);
+            return NPocoHelper.ExecuteReader(ConnectionString, CommandType.StoredProcedure, DatabaseOwner + ObjectQualifier + procedureName, commandParameters);
         }
 
         public override T ExecuteScalar<T>(string procedureName, params object[] commandParameters)
         {
-            return PetaPocoHelper.ExecuteScalar<T>(ConnectionString, CommandType.StoredProcedure, DatabaseOwner + ObjectQualifier + procedureName, commandParameters); 
+            return NPocoHelper.ExecuteScalar<T>(ConnectionString, CommandType.StoredProcedure, DatabaseOwner + ObjectQualifier + procedureName, commandParameters); 
         }
 
         public override string ExecuteScript(string script)
