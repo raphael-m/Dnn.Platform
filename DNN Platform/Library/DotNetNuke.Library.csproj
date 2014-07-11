@@ -98,8 +98,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Packages\Newtonsoft.Json.4.5.7\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="NPoco">
-      <HintPath>..\..\Packages\NPoco.2.4.69\lib\net40\NPoco.dll</HintPath>
+    <Reference Include="NPoco, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Components\NPoco\bin\NPoco.dll</HintPath>
     </Reference>
     <Reference Include="PetaPoco">
       <HintPath>..\Components\PetaPoco\bin\PetaPoco.dll</HintPath>
@@ -254,6 +255,7 @@
     <Compile Include="Data\NPoco\NPocoHelper.cs" />
     <Compile Include="Data\NPoco\NPocoMapper.cs" />
     <Compile Include="Data\NPoco\NPocoRepository.cs" />
+    <Compile Include="Data\NPoco\NPocoExt.cs" />
     <Compile Include="Data\PetaPoco\PetaPocoDataContext.cs" />
     <Compile Include="Data\PetaPoco\PetaPocoExt.cs" />
     <Compile Include="Data\PetaPoco\PetaPocoMapper.cs" />

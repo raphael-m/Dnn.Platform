@@ -65,28 +65,16 @@ namespace DotNetNuke.Data.NPoco
         {
             var database = new Database(connectionString, "System.Data.SqlClient") { EnableAutoSelect = false };
 
-            database.OpenSharedConnection();
-
-            var connection = database.Connection as SqlConnection;
-
             if (type == CommandType.StoredProcedure)
             {
                 sql = DataUtil.GenerateExecuteStoredProcedureSql(sql, args);
             }
 
-            // Create the command and add parameters
-            IDbCommand cmd = connection.CreateCommand();
-            cmd.Connection = connection;
-            cmd.CommandText = sql;
-
             if (timeout > 0)
             {
-                cmd.CommandTimeout = timeout;
+                database.CommandTimeout = timeout;
             }
-
-            return cmd.ExecuteReader(CommandBehavior.CloseConnection);
-
-
+            return database.ExecuteReader(sql, args);
         }
 
         public static T ExecuteScalar<T>(string connectionString, CommandType type, string sql, params object[] args)
