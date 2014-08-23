@@ -491,6 +491,28 @@ namespace DotNetNuke.Entities.Host
             }
         }
 
+        /// <summary>
+        /// Whether force upgrade wizard open in ssl channel.
+        /// </summary>
+        public static bool UpgradeForceSsl
+        {
+            get
+            {
+                return HostController.Instance.GetBoolean("UpgradeForceSSL", false);
+            }
+        }
+
+        /// <summary>
+        /// The domain used when upgrade wizard forced to shown in ssl channel.
+        /// </summary>
+        public static string SslDomain
+        {
+            get
+            {
+                return HostController.Instance.GetString("SSLDomain");
+            }
+        }
+
         /// -----------------------------------------------------------------------------
         /// <summary>
         ///   Gets whether File AutoSync is Enabled
@@ -1429,9 +1451,9 @@ namespace DotNetNuke.Entities.Host
             {
                 var portalSettings = PortalController.Instance.GetCurrentPortalSettings();
 
-                if (portalSettings == null)
+                if (portalSettings == null || portalSettings.ActiveTab == null)
                 {
-                    //without portal settings, we can't continue
+                    //without portal settings or active tab, we can't continue
                     return false;
                 }
 
