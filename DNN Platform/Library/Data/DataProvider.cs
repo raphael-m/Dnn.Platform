@@ -39,6 +39,7 @@ using System.Web.Hosting;
 using DotNetNuke.Common;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.ComponentModel;
+using DotNetNuke.Data.NPoco;
 using DotNetNuke.Data.PetaPoco;
 using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Entities.Urls;
@@ -364,7 +365,7 @@ namespace DotNetNuke.Data
                 IDataReader dr = null;
                 try
                 {
-                    dr = PetaPocoHelper.ExecuteReader(connectionString, CommandType.StoredProcedure,
+                    dr = NPocoHelper.ExecuteReader(connectionString, CommandType.StoredProcedure,
                                                       Owner + Qualifier + "GetDatabaseVersion");
                 }
                 catch (SqlException ex)
