@@ -91,23 +91,28 @@ namespace DotNetNuke.Data.NPoco
             return true;
         }
 
-        public Func<object, object> GetFromDbConverter(MemberInfo mi, Type SourceType)
+        public Func<object, object> GetFromDbConverter(MemberInfo mi, Type sourceType)
         {
             var t = mi.GetMemberInfoType();
-            return mi != null ? GetFromDbConverter(t, SourceType) : null;
+            return mi != null ? GetFromDbConverter(t, sourceType) : null;
         }
 
-        public Func<object, object> GetFromDbConverter(Type DestType, Type SourceType)
+        public Func<object, object> GetFromDbConverter(Type destType, Type sourceType)
         {
             return null;
         }
 
-        public Func<object, object> GetParameterConverter(Type SourceType)
+        public Func<object, object> GetParameterConverter(Type sourceType)
         {
             return null;
         }
 
-        public Func<object, object> GetToDbConverter(Type DestType, Type SourceType)
+        public Func<object, object> GetToDbConverter(Type destType, Type sourceType)
+        {
+            return null;
+        }
+
+        public Func<object, object> GetToDbConverter(Type destType, MemberInfo sourceMemberInfo)
         {
             return null;
         }
