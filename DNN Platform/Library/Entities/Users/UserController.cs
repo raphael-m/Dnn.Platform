@@ -28,7 +28,9 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
 using DotNetNuke.Common;
+using DotNetNuke.Common.Internal;
 using DotNetNuke.Common.Utilities;
+using DotNetNuke.Data;
 using DotNetNuke.Entities.Controllers;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Portals;
@@ -45,7 +47,6 @@ using DotNetNuke.Services.Log.EventLog;
 using DotNetNuke.Services.Mail;
 using DotNetNuke.Services.Messaging.Data;
 using MembershipProvider = DotNetNuke.Security.Membership.MembershipProvider;
-using System.Globalization;
 
 namespace DotNetNuke.Entities.Users
 {
@@ -88,6 +89,16 @@ namespace DotNetNuke.Entities.Users
         public int PortalId { get; set; }
 
         #endregion
+
+        private static event EventHandler<UserCreatedEventArgs> UserCreated;
+
+        static UserController()
+        {            
+            foreach (var handlers in EventHandlersContainer<IUserEventHandlers>.Instance.EventHandlers)            
+            {
+                UserCreated += handlers.Value.UserCreated;
+            }
+        }
 
         #region Private Methods
 
@@ -791,6 +802,11 @@ namespace DotNetNuke.Entities.Users
                     //autoassign user to portal roles
                     AutoAssignUsersToRoles(user, portalId);
                 }
+
+                if (UserCreated != null)
+                {
+                    UserCreated(null, new UserCreatedEventArgs { User = user });
+                }
             }
 
             //Reset PortalId
@@ -846,6 +862,7 @@ namespace DotNetNuke.Entities.Users
                 DeleteUserPermissions(user);
                 canDelete = MembershipProvider.Instance().DeleteUser(user);
             }
+
             if (canDelete)
             {
                 //Obtain PortalSettings from Current Context
@@ -864,6 +881,16 @@ namespace DotNetNuke.Entities.Users
 					DataCache.ClearPortalCache(portalSettings.PortalId, false);
 					DataCache.ClearUserCache(portalSettings.PortalId, user.Username);
 				}
+
+                // queue remove user contributions from search index
+                var document = new Services.Search.Entities.SearchDocumentToDelete
+                {
+                    PortalId = portalId,
+                    AuthorUserId = user.UserID,
+                    SearchTypeId = Services.Search.Internals.SearchHelper.Instance.GetSearchTypeByName("user").SearchTypeId
+                };
+
+                DataProvider.Instance().AddSearchDeletedItems(document);
             }
 
             FixMemberPortalId(user, portalId);

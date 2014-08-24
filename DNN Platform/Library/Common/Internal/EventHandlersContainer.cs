@@ -22,21 +22,21 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using DotNetNuke.Common;
+
 using DotNetNuke.ComponentModel;
 using DotNetNuke.ExtensionPoints;
 using DotNetNuke.Instrumentation;
 
-namespace DotNetNuke.Services.FileSystem
+namespace DotNetNuke.Common.Internal
 {
-    internal class FileEventHandlersContainer : ComponentBase<IFileEventHandlersContainer, FileEventHandlersContainer>, IFileEventHandlersContainer
+    internal class EventHandlersContainer<T> : ComponentBase<IEventHandlersContainer<T>, EventHandlersContainer<T>>, IEventHandlersContainer<T>        
     {
-        private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof(FileEventHandlersContainer));
+        private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof(EventHandlersContainer<T>));
 
         [ImportMany]
-        private IEnumerable<Lazy<IFileEventHandlers>> eventsHandlers = new List<Lazy<IFileEventHandlers>>();
+        private IEnumerable<Lazy<T>> eventsHandlers = new List<Lazy<T>>();
 
-        public FileEventHandlersContainer()
+        public EventHandlersContainer()
         {
             try
             {
@@ -52,7 +52,7 @@ namespace DotNetNuke.Services.FileSystem
             }
         }
 
-        public IEnumerable<Lazy<IFileEventHandlers>> FileEventsHandlers
+        public IEnumerable<Lazy<T>> EventHandlers
         {
             get
             {

@@ -1,6 +1,6 @@
-#region Copyright
+﻿#region Copyright
 // 
-// DotNetNuke� - http://www.dotnetnuke.com
+// DotNetNuke® - http://www.dotnetnuke.com
 // Copyright (c) 2002-2014
 // by DotNetNuke Corporation
 // 
@@ -19,13 +19,10 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
-using System;
-using System.Collections.Generic;
-
-namespace DotNetNuke.Services.FileSystem
+namespace DotNetNuke.Entities.Portals
 {
-    internal interface IFileEventHandlersContainer
+    public interface IPortalEventHandlers
     {
-        IEnumerable<Lazy<IFileEventHandlers>> FileEventsHandlers { get; }
+        void PortalCreated(object sender, PortalCreatedEventArgs args);
     }
 }

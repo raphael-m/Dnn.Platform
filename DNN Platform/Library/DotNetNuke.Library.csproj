@@ -283,6 +283,12 @@
     <Compile Include="Entities\IPFilter\IIPFilterController.cs" />
     <Compile Include="Entities\IPFilter\IPFilterController.cs" />
     <Compile Include="Entities\IPFilter\IPFilterInfo.cs" />
+    <Compile Include="Entities\Portals\PortalCreatedEventArgs.cs" />
+    <Compile Include="Entities\Portals\IPortalEventHandlers.cs" />
+    <Compile Include="Entities\Users\IUserEventHandlers.cs" />
+    <Compile Include="Common\Internal\IEventHandlersContainer.cs" />
+    <Compile Include="Common\Internal\EventHandlersContainer.cs" />
+    <Compile Include="Entities\Users\UserCreatedEventArgs.cs" />
     <Compile Include="Obsolete\IPortalSettings.cs" />
     <Compile Include="Obsolete\IUserController.cs" />
     <Compile Include="Obsolete\IModuleController.cs" />
@@ -539,7 +545,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Services\FileSystem\EventArgs\FileChangedEventArgs.cs" />
-    <Compile Include="Services\FileSystem\FileEventHandlersContainer.cs" />
     <Compile Include="Services\FileSystem\FileLinkClickController.cs" />
     <Compile Include="Services\FileSystem\FileSizeFormatProvider.cs" />
     <Compile Include="Services\FileSystem\FileUrlHelper.cs" />
@@ -550,7 +555,6 @@
     <Compile Include="Services\FileSystem\FolderMappings\FolderTypeSettingConfig.cs" />
     <Compile Include="Services\FileSystem\FolderMappings\IFolderMappingsConfigController.cs" />
     <Compile Include="Services\FileSystem\IFileEventHandlers.cs" />
-    <Compile Include="Services\FileSystem\IFileEventHandlersContainer.cs" />
     <Compile Include="Services\FileSystem\IFileLincClickController.cs" />
     <Compile Include="Services\FileSystem\IFileVersionController.cs" />
     <Compile Include="Services\FileSystem\Internal\FileDeletionController.cs" />
@@ -572,6 +576,7 @@
     <Compile Include="Services\Search\Controllers\TabResultController.cs" />
     <Compile Include="Services\Search\Controllers\ModuleResultController.cs" />
     <Compile Include="Services\Search\Controllers\UserResultController.cs" />
+    <Compile Include="Services\Search\Entities\SearchDocumentToDelete.cs" />
     <Compile Include="Services\Search\Entities\SortDirections.cs" />
     <Compile Include="Services\Search\Entities\SearchResults.cs" />
     <Compile Include="Services\Search\Entities\SortFields.cs" />

@@ -47,8 +47,9 @@ using DotNetNuke.Entities.Users;
 using DotNetNuke.Instrumentation;
 using DotNetNuke.Security;
 using DotNetNuke.Services.FileSystem;
-
+using DotNetNuke.Services.Search.Entities;
 using Microsoft.ApplicationBlocks.Data;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -4152,7 +4153,40 @@ namespace DotNetNuke.Data
 
         #endregion
 
-        #region User Index Methods 
+        #region Search deleted items related methods
+
+        public void AddSearchDeletedItems(SearchDocumentToDelete deletedIDocument)
+        {
+            try
+            {
+                ExecuteNonQuery("SearchDeletedItems_Add", deletedIDocument.ToString());
+            }
+            catch (SqlException ex)
+            {
+                Logger.Error(ex);
+            }
+        }
+
+        public void DeleteProcessedSearchDeletedItems(DateTime cutoffTime)
+        {
+            try
+            {
+                ExecuteNonQuery("SearchDeletedItems_DeleteProcessed", cutoffTime);
+            }
+            catch (SqlException ex)
+            {
+                Logger.Error(ex);
+            }
+        }
+
+        public IDataReader GetSearchDeletedItems(DateTime cutoffTime)
+        {
+            return ExecuteReader("SearchDeletedItems_Select", cutoffTime);
+        }
+
+        #endregion
+
+        #region User Index Methods
 
         public virtual IDataReader GetAvailableUsersForIndex(int portalId, DateTime startDate, int startUserId, int numberOfUsers)
         {
