@@ -35,6 +35,7 @@ namespace DotNetNuke.Web.Razor
 {
     public class RazorHostControl : ModuleControlBase, IActionable
     {
+        private RazorEngine _engine;
         private readonly string _razorScriptFile;
 
         public RazorHostControl(string scriptFile)
@@ -47,7 +48,6 @@ namespace DotNetNuke.Web.Razor
             get { return _razorScriptFile; }
         }
 
-	    private RazorEngine _engine;
 	    private  RazorEngine Engine
 	    {
 		    get

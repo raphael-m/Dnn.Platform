@@ -1,0 +1,8 @@
+﻿<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Target Name="AfterBuild" DependsOnTargets="DebugProject">
+  </Target>  <Target Name="DebugProject">
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\bin\Dnn.Mvc.Utils.dll" DestinationFolder="..\..\Website\bin\" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\bin\Dnn.Mvc.Utils.pdb" DestinationFolder="..\..\Website\bin\" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\bin\Dnn.Mvc.Utils.xml" DestinationFolder="..\..\Website\bin\" />
+  </Target>
+</Project>

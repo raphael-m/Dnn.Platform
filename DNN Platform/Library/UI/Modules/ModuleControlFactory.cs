@@ -40,6 +40,7 @@ namespace DotNetNuke.UI.Modules
             string extension = Path.GetExtension(moduleConfiguration.ModuleControl.ControlSrc.ToLower());
 
             IModuleControlFactory controlFactory = null;
+            Type factoryType;
             switch (extension)
             {
                 case ".ascx":
@@ -47,7 +48,14 @@ namespace DotNetNuke.UI.Modules
                     break;
                 case ".cshtml":
                 case ".vbhtml":
-                    Type factoryType = Reflection.CreateType("DotNetNuke.Web.Razor.RazorModuleControlFactory");
+                    factoryType = Reflection.CreateType("DotNetNuke.Web.Razor.RazorModuleControlFactory");
+                    if (factoryType != null)
+                    {
+                        controlFactory = Reflection.CreateObject(factoryType) as IModuleControlFactory;
+                    }
+                    break;
+                case ".mvc":
+                    factoryType = Reflection.CreateType("Dnn.Mvc.Web.MvcModuleControlFactory");
                     if (factoryType != null)
                     {
                         controlFactory = Reflection.CreateObject(factoryType) as IModuleControlFactory;
