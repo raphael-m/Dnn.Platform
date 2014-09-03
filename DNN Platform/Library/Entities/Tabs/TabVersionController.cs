@@ -19,6 +19,7 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using DotNetNuke.Common;
@@ -58,14 +59,41 @@ namespace DotNetNuke.Entities.Tabs
         public void SaveTabVersion(TabVersion tabVersion)
         {
             var tabVersionId = Provider.SaveTabVersion(tabVersion.TabVersionId, tabVersion.TabId, tabVersion.TimeStamp,
-                tabVersion.Version, tabVersion.CreatedByUserID, tabVersion.LastModifiedByUserID);
-
+                tabVersion.Version, tabVersion.IsPublished, tabVersion.CreatedByUserID, tabVersion.LastModifiedByUserID);
+            if (tabVersion.TabVersionId != tabVersionId)
+            {
+                ClearCache(tabVersion.TabId);
+            }
             tabVersion.TabVersionId = tabVersionId;
         }
 
-        public void DeleteTabVersion(int tabVersionId)
+        public TabVersion CreateTabVersion(int tabId, int createdByUserID, bool isPublished = false)
+        {
+            var lastTabVersion = GetTabVersions(tabId).OrderByDescending(tv => tv.Version).FirstOrDefault();
+            var newVersion = 1;
+            if (lastTabVersion != null)
+            {
+                newVersion = lastTabVersion.Version + 1;
+            }
+            
+            var tabVersionId = Provider.SaveTabVersion(0, tabId, DateTime.UtcNow,
+                newVersion, isPublished, createdByUserID, createdByUserID);
+
+            ClearCache(tabId);
+
+            return GetTabVersion(tabVersionId, tabId);
+        }
+
+        public void DeleteTabVersion(int tabId, int tabVersionId)
         {
             Provider.DeleteTabVersion(tabVersionId);
+            ClearCache(tabId);
+        }
+
+        private void ClearCache(int tabId)
+        {
+            string cacheKey = string.Format(DataCache.TabVersionsCacheKey, tabId);
+            DataCache.RemoveCache(cacheKey);
         }
 
         protected override System.Func<ITabVersionController> GetFactory()

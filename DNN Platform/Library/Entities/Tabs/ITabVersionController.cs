@@ -46,9 +46,20 @@ namespace DotNetNuke.Entities.Tabs
         void SaveTabVersion(TabVersion tabVersion);
 
         /// <summary>
+        /// Creates a new version for a existing Tab
+        /// </summary>
+        /// <param name="tabId">The Tab Id to be queried</param>
+        /// <param name="createdByUserID">User Id who creates the version</param>
+        /// <param name="isPublished">If true, the version is automatically published</param>
+        /// <returns></returns>
+        TabVersion CreateTabVersion(int tabId, int createdByUserID, bool isPublished = false);
+
+
+        /// <summary>
         /// Deletes a Tab Version
         /// </summary>
+        /// <param name="tabId">The Tab Id to be queried</param>
         /// <param name="tabVersionId">The Tab Version Id to be deleted</param>
-        void DeleteTabVersion(int tabVersionId);
+        void DeleteTabVersion(int tabId, int tabVersionId);
     }
 }

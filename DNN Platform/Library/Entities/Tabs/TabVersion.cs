@@ -35,7 +35,7 @@ namespace DotNetNuke.Entities.Tabs
         public int TabId { get; set; }
         public int Version { get; set; }
         public DateTime TimeStamp { get; set; }
-
+        public bool IsPublished { get; set; }
         #endregion
 
     }

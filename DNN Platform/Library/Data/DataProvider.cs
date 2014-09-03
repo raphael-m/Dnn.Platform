@@ -930,9 +930,9 @@ namespace DotNetNuke.Data
             ExecuteNonQuery("SaveTabUrl", tabId, seqNum, GetNull(portalAliasId), portalAliasUsage, url, queryString, cultureCode, httpStatus, isSystem, modifiedByUserID);
         }
 
-        public virtual int SaveTabVersion(int tabVersionId, int tabId, DateTime timeStamp, int version, int createdByUserID, int modifiedByUserID)
+        public virtual int SaveTabVersion(int tabVersionId, int tabId, DateTime timeStamp, int version, bool isPublished, int createdByUserID, int modifiedByUserID)
         {
-            return ExecuteScalar<int>("SaveTabVersion", tabVersionId, tabId, timeStamp, version, createdByUserID, modifiedByUserID);
+            return ExecuteScalar<int>("SaveTabVersion", tabVersionId, tabId, timeStamp, version, isPublished, createdByUserID, modifiedByUserID);
         }
 
         public virtual int SaveTabVersionDetail(int tabVersionDetailId, int tabVersionId, int moduleId, int moduleVersion, string paneName, int moduleOrder, int createdByUserID, int modifiedByUserID)

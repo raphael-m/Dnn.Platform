@@ -62,12 +62,24 @@ namespace DotNetNuke.Entities.Tabs
                 tabVersionDetail.PaneName, tabVersionDetail.ModuleOrder, tabVersionDetail.CreatedByUserID,
                 tabVersionDetail.LastModifiedByUserID);
 
+            if (tabVersionDetail.TabVersionDetailId != tabVersionDetailId)
+            {
+                ClearCache(tabVersionDetail.TabVersionId);
+            }
+
             tabVersionDetail.TabVersionDetailId = tabVersionDetailId;
         }
 
-        public void DeleteTabVersionDetail(int tabVersionDetailId)
+        public void DeleteTabVersionDetail(int tabVersionId, int tabVersionDetailId)
         {
             Provider.DeleteTabVersionDetail(tabVersionDetailId);
+            ClearCache(tabVersionId);
+        }
+
+        private void ClearCache(int tabVersionId)
+        {
+            string cacheKey = string.Format(DataCache.TabVersionDetailsCacheKey, tabVersionId);
+            DataCache.RemoveCache(cacheKey);
         }
 
         protected override System.Func<ITabVersionDetailController> GetFactory()
