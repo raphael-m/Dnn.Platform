@@ -581,9 +581,10 @@ namespace DotNetNuke.Entities.Urls
                                     {
                                         if (result.Action == ActionType.Redirect301)
                                         {
-                                            response.Status = "301 Moved Permanently";
+                                            //response.Status = "301 Moved Permanently";
                                             response.AppendHeader("X-Redirect-Reason", result.Reason.ToString().Replace("_", " ") + " Requested");
-                                            response.AddHeader("Location", result.FinalUrl);
+                                            //response.AddHeader("Location", result.FinalUrl);
+                                            response.RedirectPermanent(result.FinalUrl, false);
                                             finished = true;
                                         }
                                         else if (result.Action == ActionType.Redirect302)

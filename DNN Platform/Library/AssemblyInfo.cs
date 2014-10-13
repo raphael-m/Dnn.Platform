@@ -33,7 +33,7 @@ using DotNetNuke.Application;
 
 // Review the values of the assembly attributes
 
-[assembly: AssemblyTitle("DotNetNuke")]
+[assembly: AssemblyTitle("DotNetNuke - Modified by 2sic - see Dashboard of AHV-IV")]
 [assembly: AssemblyDescription("Open Source Web Application Framework")]
 [assembly: AssemblyCompany("DotNetNuke Corporation")]
 [assembly: AssemblyProduct("http://www.dotnetnuke.com")]
